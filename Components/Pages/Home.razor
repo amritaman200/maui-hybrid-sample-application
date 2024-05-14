@@ -1,0 +1,32 @@
+﻿@page "/home"
+
+
+<h1>Movies Listing.</h1>
+<table class="table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Name</th>
+				<th>Rating</th>
+				<th>Image</th>
+			</tr>
+		</thead>
+		<tbody>
+		@foreach (var item in movies.Skip((currentPage - 1) * pageSize).Take(pageSize))
+{
+    <tr>
+        <td>@item.id</td>
+        <td>@item.movie</td>
+        <td>@item.rating</td>
+        <td>
+					<img style="height:40;width:50px;" src="https://picsum.photos/seed/picsum/200/300" />
+            </td>
+    </tr>
+}
+
+	</tbody>
+</table>
+
+<button class="btn btn-primary" disabled="@IsFirstPage" @onclick="PreviousPage">Previous</button>
+<button class="btn btn-primary" disabled="@IsLastPage" @onclick="NextPage">Next</button>
+

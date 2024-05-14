@@ -1,0 +1,19 @@
+﻿.checkoutbtn {
+    display: inline-block;
+    color: white;
+    border: 1px solid #CCC;
+    background: blue;
+    box-shadow: 0 0 5px -1px rgba(0,0,0,0.2);
+    cursor: pointer;
+    vertical-align: middle;
+    max-width: 100px;
+    padding: 5px;
+    text-align: center;
+    height: 30px;
+    width: 70px;
+}
+
+    .checkoutbtn:active {
+        color: black;
+        box-shadow: 0 0 5px -1px rgba(0,0,0,0.6);
+    }

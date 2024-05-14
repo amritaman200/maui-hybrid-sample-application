@@ -1,0 +1,92 @@
+﻿@page "/products"
+
+@if(IsProductDetail){
+	<div @onclick="()=>HideDetail()">
+		<svg height="30px" width="30px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 38.273 38.273" xml:space="preserve" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path style="fill:#010002;" d="M20.621,10.484V5.84c0-0.808-0.458-1.548-1.181-1.909c-0.722-0.359-1.589-0.279-2.236,0.206 l-9.486,7.147c-0.677,0.292-1.117,0.67-1.401,1.058l-5.468,4.119C0.312,16.866-0.003,17.501,0,18.173 c0.002,0.673,0.322,1.305,0.862,1.706l16.355,12.133c0.646,0.48,1.51,0.554,2.23,0.191c0.72-0.362,1.174-1.1,1.174-1.905v-5.517 c0.013,0,0.025,0,0.038,0c3.842,0,10.687,1.089,13.366,8.386c0.311,0.846,1.116,1.397,2.001,1.397c0.079,0,0.157-0.004,0.236-0.013 c0.975-0.108,1.751-0.868,1.88-1.84c0.052-0.394,1.208-9.682-4.461-16.23C30.621,12.948,26.235,10.935,20.621,10.484z M20.659,20.515c-1.443,0-2.379,0.132-2.482,0.146c-1.046,0.154-1.822,1.053-1.822,2.111v3.287l-10.66-7.907l3.555-2.678 c0.136-0.104,0.259-0.222,0.365-0.351c0.155-0.068,0.301-0.152,0.437-0.254l6.303-4.75v2.401c0,1.168,0.939,2.119,2.108,2.134 c5.345,0.063,9.374,1.61,11.975,4.6c1.442,1.658,2.314,3.602,2.835,5.469C28.923,21.038,23.424,20.515,20.659,20.515z"></path> </g> </g></svg>
+	</div>
+
+	<h3>Product Detail</h3>
+
+	<div class="row" >
+         <div class="col-7">
+			 <img height="420" width="420" src="@SelectedProduct.images[0]"/>
+		 </div>
+		<div class="col-5">
+			<p> Title : @SelectedProduct.title</p> <br />
+			<p> Description : @SelectedProduct.description</p><br />
+			<p> Price : $ @SelectedProduct.price</p><br />
+			<p> Rating : @SelectedProduct.rating</p><br />
+		</div>
+	</div>
+}
+else{
+
+
+
+
+<h3>Product Listing</h3>
+@if (products.Any(val => val.AddedToCart == true))
+{
+	<div class="row">
+		<div class="col-10"></div>
+		<div class="col-2" @onclick="()=>GoToCart()">
+			
+
+			<div class="row">
+					<div style="background-color:blue; height:30px; width:140px; color:white; cursor:pointer" >
+						Check Out (@App.CartList.Count)
+				</div>
+			</div>
+			
+			</div>
+	</div>
+}
+<table class="table">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>Name</th>
+			
+			<th>Price</th>
+				<th>Rating</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in products)
+		{
+			<tr>
+				<td>@item.id</td>
+				<td>@item.title</td>
+				<td>@item.price</td>
+				<td>@item.rating</td>
+				<td>
+					<img style="height:40;width:50px;" src="@item.images[0]" />
+				</td>
+				<td>
+					@if(@item.AddedToCart)
+					{
+						<div @onclick="()=>RemoveFromCart(item.id)">
+							<svg  height="30" width="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="Edit / Remove_Minus_Circle"> <path id="Vector" d="M8 12H16M12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g> </g></svg>
+						</div>
+					}
+					else{
+						<div @onclick="()=>AddToCart(item.id)">
+							<svg height="30" width="30" fill="#000000" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 902.86 902.86" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M671.504,577.829l110.485-432.609H902.86v-68H729.174L703.128,179.2L0,178.697l74.753,399.129h596.751V577.829z M685.766,247.188l-67.077,262.64H131.199L81.928,246.756L685.766,247.188z"></path> <path d="M578.418,825.641c59.961,0,108.743-48.783,108.743-108.744s-48.782-108.742-108.743-108.742H168.717 c-59.961,0-108.744,48.781-108.744,108.742s48.782,108.744,108.744,108.744c59.962,0,108.743-48.783,108.743-108.744 c0-14.4-2.821-28.152-7.927-40.742h208.069c-5.107,12.59-7.928,26.342-7.928,40.742 C469.675,776.858,518.457,825.641,578.418,825.641z M209.46,716.897c0,22.467-18.277,40.744-40.743,40.744 c-22.466,0-40.744-18.277-40.744-40.744c0-22.465,18.277-40.742,40.744-40.742C191.183,676.155,209.46,694.432,209.46,716.897z M619.162,716.897c0,22.467-18.277,40.744-40.743,40.744s-40.743-18.277-40.743-40.744c0-22.465,18.277-40.742,40.743-40.742 S619.162,694.432,619.162,716.897z"></path> </g> </g> </g></svg>
+
+						</div>
+					}
+					
+				</td>
+				<td>
+					<span style="cursor:pointer;" @onclick="()=>ShowDetail(item)">View Detail</span>
+				</td>
+			</tr>
+		}
+
+	</tbody>
+</table>
+
+@* <button class="btn btn-primary" disabled="@IsFirstPage" @onclick="PreviousPage">Previous</button>
+<button class="btn btn-primary" disabled="@IsLastPage" @onclick="NextPage">Next</button> *@
+}
